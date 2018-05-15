@@ -2,14 +2,11 @@
 
 {{-- Menu Breadcrumb --}}
 @section('breadcrumb')
-    <a class="btn" href="{{ route('perbaikanruangans.destroy', [ $perbaikanRuangan->id]) }}" onclick="event.preventDefault();confirmDeletion();"><i class="icon-trash"></i> Hapus</a>
+  {!! Form::open(['route' => ['perbaikanruangans.destroy', $perbaikanRuangan->id], 'method' => 'delete']) !!}
+  {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'onclick' => "return confirm('Are you sure?')"]) !!} 
     <a class="btn" href="{{ route('perbaikanruangans.edit', [ $perbaikanRuangan->id]) }}"><i class="icon-pencil"></i> Edit</a>
     <a class="btn" href="{{ route('perbaikanruangans.index') }}"><i class="icon-list"></i> List</a>
-
-    <form style="display: none" action="{{ route('perbaikanruangans.destroy', [$perbaikanRuangan->id]) }}" method="post" id="form-delete">
-        @csrf
-        @method('delete')
-    </form>
+{!! Form::close() !!}
 @endsection
 
 {{-- Content Utama --}}
