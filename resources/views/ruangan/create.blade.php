@@ -2,7 +2,7 @@
 
 {{-- Menu Breadcrumb --}}
 @section('breadcrumb')
-    <a class="btn" href="{{ ('/ruangan/create') }}"><i class="icon-list"></i> List </a>
+    <a class="btn" href="{{ route('ruangan.index') }}"><i class="icon-list"></i> List </a>
 @endsection
 
 {{-- Content Utama --}}
@@ -11,15 +11,15 @@
     <div class="col-md-12"> 
         <div class="card">
             
-            {!! Form::open(['route' => 'users.store', 'method' => 'post'] ) !!}
+            {!! Form::open(['route' => 'ruangan.store', 'method' => 'post'] ) !!}
             
             <div class="card-header">
-                <i class="fa fa-align-justify"></i> Tambah User
+                <i class="fa fa-align-justify"></i> Tambah Ruangan
             </div>
             
             <div class="card-body">
                 
-                @include('admin.users._form')
+                @include('ruangan._form')
                 
             </div>
             
