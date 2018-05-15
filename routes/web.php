@@ -33,3 +33,4 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('image/{type}/{id}', 'FileController@image')->name('get.image');
+Route::resource('gedungs', 'GedungController');

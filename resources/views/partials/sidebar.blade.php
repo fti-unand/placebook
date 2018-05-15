@@ -6,10 +6,18 @@
                     <i class="nav-icon icon-speedometer"></i> Dashboard
                 </a>
             </li>
-            <li class="nav-title">Menu</li>
+            
+			<li class="nav-title">Menu</li>
+			
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('users.index') }}">
                     <i class="nav-icon icon-people"></i> Manajemen User
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('gedungs.index') }}">
+                    <i class="nav-icon icon-list"></i> Gedung 
                 </a>
             </li>
         </ul>
