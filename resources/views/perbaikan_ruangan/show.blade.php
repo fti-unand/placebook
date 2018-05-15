@@ -60,9 +60,14 @@
 
                        <div class="form-group row">
                         <label class="col-md-3 col-form-label">Status Pengajuan</label>
-                        <div class="col-md-9">
-                            <p class="col-form-label">{{ $perbaikanRuangan->status_pengajuan  }}</p>
-                        </div>
+                        <?php 
+                                if ( $perbaikanRuangan->status_pengajuan==1 ) {
+                                ?><p class="col-form-label"> Diajukan </p><?php
+                                }
+                                else{
+                                 ?><p class="col-form-label"> dibatalkan </p><?php
+                                }
+                             ?>
                     </div>
 
                       <div class="form-group row">
