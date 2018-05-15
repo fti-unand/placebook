@@ -1,4 +1,4 @@
-<?php
+v<?php
 
 namespace App\Http\Controllers;
 
@@ -164,7 +164,7 @@ class PerbaikanRuanganController extends Controller
 
 
         if ($perbaikanRuangan->save()) {
-            toast()->success('Berhasil memperbaharui data user');
+            toast()->success('Berhasil memperbaharui data pengajuan');
             
             return redirect()->route('perbaikanruangans.index');
         } else {
