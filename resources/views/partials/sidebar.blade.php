@@ -11,6 +11,12 @@
                 <a class="nav-link" href="{{ route('users.index') }}">
                     <i class="nav-icon icon-people"></i> Manajemen User
                 </a>
+                <a class="nav-link" href="{{ route('laporans.index') }}">
+                    <i class="nav-icon icon-people"></i> Laporan Penggunaan Ruangan
+                </a> 
+                <a class="nav-link" href="{{ route('rusaks.index') }}">
+                    <i class="nav-icon icon-people"></i> Laporan Perbaikan Ruangan
+                </a> 
             </li>
         </ul>
     </nav>
