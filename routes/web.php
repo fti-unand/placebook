@@ -33,3 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('image/{type}/{id}', 'FileController@image')->name('get.image');
+
+Route::resource('perbaikan', 'PerbaikanController');
+Route::post('perbaikan/deactivate/{id}', 'PerbaikanController@deactivate')->name('perbaikan.deactivate');
+Route::post('perbaikan/activate/{id}', 'PerbaikanController@activate')->name('perbaikan.activate');
