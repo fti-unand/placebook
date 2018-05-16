@@ -99,12 +99,12 @@
                    
                 </form>
             </div>
-            <div  > @if($PeminjamanRuangan->peminjaman_status_id == 1)
-                <a href="#" class="btn btn-sm btn-outline-primary" onclick="event.preventDefault();activ('{{ route('prosespeminjamans.deactivate', [$PeminjamanRuangan->id]) }}')">
+            <div > @if($PeminjamanRuangan->peminjaman_status_id == 1)
+                <a href="#" class="btn btn-sm btn-outline-primary" onclick="event.preventDefault();activation('{{ route('prosespeminjamans.deactivate', [$PeminjamanRuangan->id]) }}')">
                                     Disetujui (batalkan)
                     </a>
                     @else
-                    <a href="#" class="btn btn-sm btn-outline-secondary" onclick="event.preventDefault();activ('{{ route('prosespeminjamans.activate', [$PeminjamanRuangan->id]) }}')">
+                    <a href="#" class="btn btn-sm btn-outline-secondary" onclick="event.preventDefault();activation('{{ route('prosespeminjamans.activate', [$PeminjamanRuangan->id]) }}')">
                                     Belum disetujui (Setujui)
                 </a>
                 @endif
@@ -113,7 +113,7 @@
     </div>
 </div>
 
-<form style="display: none" action="#" method="post" id="form-activ">
+<form style="display: none" action="#" method="post" id="form-activation">
     @csrf
 </form>
 @endsection
@@ -121,8 +121,8 @@
 
 @push('javascript')
 <script>
-     function activ(url){
-        form = document.querySelector('#form-activ');
+     function activation(url){
+        form = document.querySelector('#form-activation');
         form.action = url;
         form.submit();
     }
