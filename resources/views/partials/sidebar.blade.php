@@ -14,7 +14,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('peminjaman.index') }}">
-                    <i class="nav-icon icon-people"></i> Peminjaman
+                    <i class="nav-icon icon-people"></i> Manajemen Peminjaman
                 </a>
             </li>
         </ul>

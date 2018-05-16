@@ -22,14 +22,14 @@
     @include('partials.sidebar')
     
     <main class="main">
-
+      
       <!-- Breadcrumb-->
       <ol class="breadcrumb">
         <li class="breadcrumb-item">Home</li>
-
+        
         <!-- Breadcrumb Menu-->
         <li class="breadcrumb-menu d-md-down-none">
-        
+        <td class="text-center"> Silahkan dipilih apa yang anda akan lakukan pada menu side bar !</td>
           @yield('breadcrumb')
       
         </li>
@@ -48,6 +48,7 @@
 
     </main>
   </div>
+
   @include('partials.footer')
   <!-- Bootstrap and necessary plugins-->
   <script src="{{ asset('js/app.js') }}"></script>
