@@ -30,6 +30,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('users/deactivate/{id}', 'UserController@deactivate')->name('users.deactivate');
     Route::post('users/activate/{id}', 'UserController@activate')->name('users.activate');
     Route::resource('users', 'UserController');
+    Route::resource('laporans', 'laporanController');
+    Route::get('laporan', 'LaporanController@index')->name('laporans.index');
+    Route::get('rusak', 'RusakController@index')->name('rusaks.index');
+    Route::get('statis', 'statistikController@gabungtable')->name('statis.gabungtable');
+
+
 });
 
 Route::get('image/{type}/{id}', 'FileController@image')->name('get.image');
