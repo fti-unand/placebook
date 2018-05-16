@@ -21,6 +21,7 @@
                 <table class="table table-responsive-sm table-bordered">
                     <thead>
                         <tr>
+<<<<<<< HEAD
                             <th class="text-center">Gedung</th>
                             <th class="text-center">Ruangan</th>
                             <th class="text-center">Pengaju</th>
@@ -28,6 +29,11 @@
                             <th class="text-center">Tanggal Selesai Perbaikan</th>
                             <th class="text-center">Alasan</th>
                             
+=======
+                            <th class="text-center">ID Ruangan</th>
+                            <th class="text-center">Alasan</th>
+                            <th class="text-center">Tanggal Perbaikan</th>
+>>>>>>> ccd63fb1d63f106de579d2093d5d7c1acb8a47cd
                             
                         </tr>
 
@@ -35,12 +41,18 @@
                     <tbody>
                         @foreach($rusaks as $rusak)
                         <tr>
+<<<<<<< HEAD
                             <td>{{ $rusak->gedung }}</td>
                             <td>{{ $rusak->ruangan }}</td>
                             <td>{{ $rusak->username }}</td>
                             <td>{{ $rusak->tanggal_perbaikan }}</td>
                             <td>{{ $rusak->tanggal_selesai_perbaikan}}</td>
                             <td>{{ $rusak->alasan }}</td>
+=======
+                            <td>{{ $rusak->ruangan_id }}</td>
+                            <td>{{ $rusak->alasan}}</td>
+                            <td>{{ $rusak->tanggal_perbaikan }}</td>
+>>>>>>> ccd63fb1d63f106de579d2093d5d7c1acb8a47cd
                             
                             
                             
