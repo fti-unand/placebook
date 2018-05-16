@@ -13,6 +13,7 @@ class ProfileController extends Controller
 {
     public function show()
     {
+        
         $user = Auth::user();
         $tipe = config('reference.user_type');
 
