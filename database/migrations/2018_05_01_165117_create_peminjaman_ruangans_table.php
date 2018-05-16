@@ -26,6 +26,8 @@ class CreatePeminjamanRuangansTable extends Migration
             $table->integer('peminjaman_status_id')->unsigned();
             $table->text('tujuan');
 
+            
+
             $table->timestamps();
 
             $table->foreign('ruangan_id')->references('id')->on('ruangan');

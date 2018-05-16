@@ -11,6 +11,12 @@
                 <a class="nav-link" href="{{ route('users.index') }}">
                     <i class="nav-icon icon-people"></i> Manajemen User
                 </a>
+				
+				  <a class="nav-link" href="{{ route('prosespeminjamans.index') }}">
+                    <i class="nav-icon icon-list"></i> Peminjaman Ruangan
+					</a>
+
+                  
             </li>
         </ul>
     </nav>

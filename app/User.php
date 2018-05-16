@@ -38,4 +38,8 @@ class User extends Authenticatable
             return $this->hasOne(Tendik::class, 'id', 'id');
         }
     }
+
+      public function PeminjamanRuangan(){
+        return $this->hasMany('App\PeminjamanRuangan','peminjaman_status_id');
+    }
 }

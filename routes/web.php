@@ -29,7 +29,18 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('users/deactivate/{id}', 'UserController@deactivate')->name('users.deactivate');
     Route::post('users/activate/{id}', 'UserController@activate')->name('users.activate');
+
     Route::resource('users', 'UserController');
 });
 
 Route::get('image/{type}/{id}', 'FileController@image')->name('get.image');
+
+ Route::resource('prosespeminjamans', 'ProsesPeminjamanController');
+
+Route::post('prosespeminjamans/deactivate/{id}', 'ProsesPeminjamanController@deactivate')->name('prosespeminjamans.deactivate');
+
+Route::post('prosespeminjamans/activate/{id}', 'ProsesPeminjamanController@activate')->name('prosespeminjamans.activate');
+
+
+
+    
