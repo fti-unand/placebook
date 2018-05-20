@@ -33,3 +33,12 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('image/{type}/{id}', 'FileController@image')->name('get.image');
+
+Route::get('/fasilitas', 'fasilitasRuanganController@index')->name('fasilitas');
+
+
+Route::post('/create', 'fasilitasRuanganController@create');
+
+Route::patch('/edit/{id}', 'fasilitasRuanganController@edit');
+
+Route::delete('/destroy/{id}', 'fasilitasRuanganController@destroy')->name('fasilitas.destroy');
