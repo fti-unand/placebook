@@ -32,8 +32,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UserController');
 });
 
+Route::get('perbaikan/status', 'PerbaikanController@status')->name('perbaikan.status');
+
 Route::get('image/{type}/{id}', 'FileController@image')->name('get.image');
 
 Route::resource('perbaikan', 'PerbaikanController');
+
 Route::post('perbaikan/deactivate/{id}', 'PerbaikanController@deactivate')->name('perbaikan.deactivate');
 Route::post('perbaikan/activate/{id}', 'PerbaikanController@activate')->name('perbaikan.activate');

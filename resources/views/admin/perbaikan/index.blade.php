@@ -22,11 +22,11 @@
                     <thead>
                         <tr>
                             <th class="text-center">ID</th>
-                            <th class="text-center">Ruangan ID</th>
+                            <th class="text-center">Nama Ruangan</th>
                             <th class="text-center">Tgl Pengajuan</th>
-                            <th class="text-center">Pengaju ID</th>
+                            <th class="text-center">Pengaju</th>
                             <th class="text-center">Status Perbaikan</th>
-                            <th class="text-center">Status</th>
+                            <th class="text-center">Penyetujuan</th>
                             <th class="text-center">Detail</th>
                             <th class="text-center">Update Status</th>
                             
@@ -41,7 +41,7 @@
                             <td>{{ $no++ }}</td>
                             <td>{{ $ruangan[$perbaikan->ruangan_id] }}</td>
                             <td>{{ $perbaikan->tanggal_pengajuan }}</td>
-                            <td>{{ $perbaikan->pengaju_id }}</td>
+                            <td>{{ $user[$perbaikan->pengaju_id] }}</td>
                             <td>{{ $status[$perbaikan->perbaikan_status_id] }}</td>
                            
                            
@@ -49,6 +49,9 @@
                                 @if($perbaikan->perbaikan_status_id == 1)
                                 <a href="#" class="btn btn-sm btn-outline-primary" onclick="event.preventDefault();activation('{{ route('perbaikan.deactivate', [$perbaikan->id]) }}')">
                                      Belum disetujui
+                                </a>
+                                @elseif($perbaikan->perbaikan_status_id == 4)
+                                <a href="#" class="btn btn-sm btn-outline-primary" onclick="event.preventDefault();sembunyi()">
                                 </a>
                                 @else
                                 <a href="#" class="btn btn-sm btn-outline-secondary" onclick="event.preventDefault();activation('{{ route('perbaikan.activate', [$perbaikan->id]) }}')">
@@ -75,6 +78,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                <a href="{{ route('perbaikan.status') }}" class="btn btn-sm btn-outline-primary">Halaman Status Perbaikan</a>
             </div>
             
         </div>
@@ -107,6 +111,17 @@
         form = document.querySelector('#form-activation');
         form.action = url;
         form.submit();
+    }
+    var hidden = false;
+    function sembunyi()
+    {
+        
+        hidden = !hidden;
+        if(hidden){
+            document.getElementsByTagName('btn').style.visibility='hidden';
+        } else{
+            document.getElementsByTagName('btn').style.visibility='visible';
+        }
     }
 </script>
 @endpush

@@ -23,8 +23,11 @@ class PerbaikanController extends Controller
         $perbaikans = PerbaikanRuangan::all();
         $ruangan = Ruangan::pluck('nama', 'id');
         $status = PerbaikanStatus::pluck('nama','id');
-        return view('admin.perbaikan.index', compact('perbaikans','ruangan','status','users'));
+        $user = User::pluck('username','id');
+        return view('admin.perbaikan.index', compact('perbaikans','ruangan','status','user'));
     }
+
+    
 
     /**
      * Show the form for creating a new resource.
@@ -131,4 +134,15 @@ class PerbaikanController extends Controller
         }
         return redirect()->route('perbaikan.index');
     }
+
+    public function status()
+    {
+        $perbaikans = PerbaikanRuangan::all();
+        $ruangan = Ruangan::pluck('nama', 'id');
+        $status = PerbaikanStatus::pluck('nama','id');
+        return view('admin.perbaikan.status', compact('perbaikans','ruangan','status'));
+    }
+
+
+
 }
