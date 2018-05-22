@@ -100,14 +100,18 @@ class ProsesPeminjamanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $PeminjamanRuangan = PeminjamanRuangan::find($id);
+        $PeminjamanRuangan->delete();
+        toast()->success('Peminjaman berhasil ditolak');
+
+        return redirect()->route('prosespeminjamans.index');
     }
 
 
      public function activate($id)
     {
         $PeminjamanRuangan = PeminjamanRuangan::find($id);
-        $PeminjamanRuangan->peminjaman_status_id = 1;
+        $PeminjamanRuangan->peminjaman_status_id = 2; //1 belum disetujui //2. disetujui
         if ($PeminjamanRuangan->save()) {
             toast()->success('Berhasil Menyetujui ');
         } else {
@@ -116,39 +120,17 @@ class ProsesPeminjamanController extends Controller
         return redirect()->route('prosespeminjamans.index');
     }
 
-    public function deactivate($id)
-    {
-        $PeminjamanRuangan = PeminjamanRuangan::find($id);
-        $PeminjamanRuangan->peminjaman_status_id = 2;
-        if ($PeminjamanRuangan->save()) {
-            toast()->success('Berhasil membatalkan persetujuan ' );
-        } else {
-            toast()->danger('Gagal membatalkan persetujuan ' );
-        }
-        return redirect()->route('prosespeminjamans.index');
-    }
+    // public function deactivate($id)
+    // {
+    //     $PeminjamanRuangan = PeminjamanRuangan::find($id);
+    //     $PeminjamanRuangan->peminjaman_status_id = 2;
+    //     if ($PeminjamanRuangan->save()) {
+    //         toast()->success('Berhasil membatalkan persetujuan ' );
+    //     } else {
+    //         toast()->danger('Gagal membatalkan persetujuan ' );
+    //     }
+    //     return redirect()->route('prosespeminjamans.index');
+    // }
 
-        public function activa($id)
-    {
-        $PeminjamanRuangan = PeminjamanRuangan::find($id);
-        $PeminjamanRuangan->peminjaman_status_id = 1;
-        if ($PeminjamanRuangan->save()) {
-            toast()->success('Berhasil Menyetujui ');
-        } else {
-            toast()->danger('Gagal Menyetujui  ');
-        }
-        return redirect()->route('prosespeminjamans.show');
-    }
-
-    public function deactiva($id)
-    {
-        $PeminjamanRuangan = PeminjamanRuangan::find($id);
-        $PeminjamanRuangan->peminjaman_status_id = 2;
-        if ($PeminjamanRuangan->save()) {
-            toast()->success('Berhasil membatalkan persetujuan ' );
-        } else {
-            toast()->danger('Gagal membatalkan persetujuan ' );
-        }
-        return redirect()->route('prosespeminjamans.show');
-    }
+      
 }

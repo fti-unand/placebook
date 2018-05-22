@@ -33,15 +33,6 @@
                             <p class="col-form-label">{{ $user[$PeminjamanRuangan->peminjam_id] }}</p>
                         </div>
                     </div>
-
-
-                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label"> pengaju </label>
-                        <div class="col-md-9">
-                            <p class="col-form-label">{{ $PeminjamanRuangan->pengaju }}</p>
-                        </div>
-                    </div>
-
                      <div class="form-group row">
                         <label class="col-md-3 col-form-label"> tanggal_pengajuan </label>
                         <div class="col-md-9">
@@ -99,7 +90,7 @@
                    
                 </form>
             </div>
-            <div > @if($PeminjamanRuangan->peminjaman_status_id == 1)
+           <!--  <div > @if($PeminjamanRuangan->peminjaman_status_id == 1)
                 <a href="#" class="btn btn-sm btn-outline-primary" onclick="event.preventDefault();activation('{{ route('prosespeminjamans.deactivate', [$PeminjamanRuangan->id]) }}')">
                                     Disetujui (batalkan)
                     </a>
@@ -108,7 +99,7 @@
                                     Belum disetujui (Setujui)
                 </a>
                 @endif
-            </div>       
+            </div>        -->
         </div>
     </div>
 </div>
@@ -119,7 +110,7 @@
 @endsection
 
 
-@push('javascript')
+<!-- @push('javascript')
 <script>
      function activation(url){
         form = document.querySelector('#form-activation');
@@ -128,6 +119,6 @@
     }
 
 </script>
-@endpush
+@endpush -->
 
 
