@@ -60,7 +60,7 @@
                     </div>
 
                        <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Status Pengajuan</label>
+                        <label class="col-md-3 col-form-label">Aksi</label>
                        
                          @if($perbaikanRuangan->perbaikan_status_id == 1)
                                 <a href="{{ route('perbaikanruangans.batalkan', $perbaikanRuangan->id)}}" class="btn btn-sm btn-outline-primary">
