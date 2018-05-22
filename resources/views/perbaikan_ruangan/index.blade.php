@@ -40,29 +40,29 @@
                             <td>{{ $no++ }}</td>
                             <td>{{ $ruangans[$perbaikanRuangan->ruangan_id] }}</td>
                             <td>{{ $perbaikanRuangan->tanggal_pengajuan }}</td>
-                            <td>{{ $status[$perbaikanRuangan->perbaikan_status_id] }}</td>
+                            <td>{{ $perbaikanRuangan->perbaikanStatus->nama }}</td>
                             
                             <td class="text-center">
-                                @if($perbaikanRuangan->status_pengajuan == 1)
+                                @if($perbaikanRuangan->perbaikan_status_id == 1)
                                 <a href="#" class="btn btn-sm btn-outline-primary" onclick="event.preventDefault();ajukan('{{ route('perbaikanruangans.deactivate', [$perbaikanRuangan->id]) }}')">
-                                    Diajukan (Batalkan)
+                                     Batalkan Pengajuan
                                 </a>
                               
                                 @else
                                 <a href="#" class="btn btn-sm btn-outline-secondary" onclick="event.preventDefault();ajukan('{{ route('perbaikanruangans.activate', [$perbaikanRuangan->id]) }}')">
-                                    Nonaktif (Ajukan)
+                                     Ajukan Perbaikan
                                 </a>
                                 @endif
                             </td>
                         
                                <td>
-                              {!! Form::open(['route' => ['perbaikanruangans.destroy', $perbaikanRuangan->id], 'method' => 'delete']) !!}
+                            
                              <div class='btn-group'>
                                     <a href="{!! route('perbaikanruangans.show', [$perbaikanRuangan->id]) !!}" class='btn btn-default btn-xs'><i class="fa fa-eye"></i></a>
-                                    <a href="{!! route('perbaikanruangans.edit', [$perbaikanRuangan->id]) !!}" class='btn btn-default btn-xs'><i class="fa fa-pencil"></i></a>
-                                {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                                
+                         
                              </div>
-                                {!! Form::close() !!}
+                               
                         </td>
 
   
@@ -91,13 +91,7 @@
 @push('javascript')
 <script>
 
-       function confirmDeletion(url){
-        if(confirm('Anda yakin akan menghapus user ini? ')){
-            form = document.querySelector('#form-delete');
-            form.action = url;
-            form.submit();
-        }
-    }
+   
 
     function ajukan(url){
         form = document.querySelector('#form-activation');

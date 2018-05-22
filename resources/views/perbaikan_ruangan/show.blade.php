@@ -2,11 +2,9 @@
 
 {{-- Menu Breadcrumb --}}
 @section('breadcrumb')
-  {!! Form::open(['route' => ['perbaikanruangans.destroy', $perbaikanRuangan->id], 'method' => 'delete']) !!}
-  {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'onclick' => "return confirm('Are you sure?')"]) !!} 
-    <a class="btn" href="{{ route('perbaikanruangans.edit', [ $perbaikanRuangan->id]) }}"><i class="icon-pencil"></i> Edit</a>
+ 
     <a class="btn" href="{{ route('perbaikanruangans.index') }}"><i class="icon-list"></i> List</a>
-{!! Form::close() !!}
+
 @endsection
 
 {{-- Content Utama --}}
@@ -48,17 +46,11 @@
                         </div>
                     </div>
 
-                      <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Status Perbaikan</label>
-                        <div class="col-md-9">
-                            <p class="col-form-label">{{ $status[$perbaikanRuangan->perbaikan_status_id] }}</p>
-                        </div>
-                    </div>
 
                        <div class="form-group row">
                         <label class="col-md-3 col-form-label">Status Pengajuan</label>
                         <?php 
-                                if ( $perbaikanRuangan->status_pengajuan==1 ) {
+                                if ( $perbaikanRuangan->perbaikan_status_id==1 ) {
                                 ?><p class="col-form-label"> Diajukan </p><?php
                                 }
                                 else{
@@ -67,19 +59,24 @@
                              ?>
                     </div>
 
-                      <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Tanggal Perbaikan</label>
-                        <div class="col-md-9">
-                            <p class="col-form-label">{{ $perbaikanRuangan->tanggal_perbaikan  }}</p>
-                        </div>
+                       <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Status Pengajuan</label>
+                       
+                         @if($perbaikanRuangan->perbaikan_status_id == 1)
+                                <a href="{{ route('perbaikanruangans.batalkan', $perbaikanRuangan->id)}}" class="btn btn-sm btn-outline-primary">
+                                     Batalkan Pengajuan
+                                </a>
+                              
+                                @else
+                                <a href="{{ route('perbaikanruangans.ajukan', $perbaikanRuangan->id)}}" class="btn btn-sm btn-outline-secondary">
+                                     Ajukan Perbaikan
+                                </a>
+                                @endif
+                     
                     </div>
 
-                      <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Tanggal Selesai Perbaikan</label>
-                        <div class="col-md-9">
-                            <p class="col-form-label">{{ $perbaikanRuangan->tanggal_selesai_perbaikan  }}</p>
-                        </div>
-                    </div>
+
+               
 
                 </form>
             </div>
@@ -87,15 +84,29 @@
         
     </div>
 </div>
+
+<form style="display: none" action="#" method="post" id="form-activation">
+    @csrf
+</form>
+
+
 @endsection
 
 @push('javascript')
 <script>
-    function confirmDeletion(){
-        if(confirm('Anda yakin akan data ini ?')){
-            form = document.querySelector('form-delete');
-            form.submit();
-        }
+
+   
+
+    function ajukan(url){
+        form = document.querySelector('#form-activation');
+        form.action = url;
+        form.submit();
     }
+
+
 </script>
+@endpush
+
+
+
 

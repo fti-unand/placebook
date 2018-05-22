@@ -37,3 +37,7 @@ Route::resource('perbaikanruangans', 'PerbaikanRuanganController');
 
 Route::post('perbaikanruangans/deactivate/{id}', 'PerbaikanRuanganController@deactivate')->name('perbaikanruangans.deactivate');
 Route::post('perbaikanruangans/activate/{id}', 'PerbaikanRuanganController@activate')->name('perbaikanruangans.activate');
+
+    
+Route::get('perbaikanruangans/batalkan/{id}', 'PerbaikanRuanganController@batalkan')->name('perbaikanruangans.batalkan');
+Route::get('perbaikanruangans/ajukan/{id}', 'PerbaikanRuanganController@ajukan')->name('perbaikanruangans.ajukan');

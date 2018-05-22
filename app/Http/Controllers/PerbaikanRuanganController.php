@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\Session;
 use DB;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+
 
 class PerbaikanRuanganController extends Controller
 {
@@ -64,20 +67,21 @@ class PerbaikanRuanganController extends Controller
      */
     public function store(Request $request)
     {
+  
         $this->validate($request,[
            'ruangan_id'=> 'required',
-           'tanggal_pengajuan'=> 'required|date',
-           'pengaju_id'=>'required',
            'alasan'=>'required',
-           'perbaikan_status_id'=>'required',
-           'status_pengajuan'=>'required',
-           'tanggal_perbaikan'=> 'required|date',
-            'tanggal_selesai_perbaikan'=> 'required|date',
+           
+      
             ]);
 
         $input = $request->all();
+        $input['pengaju_id'] = Auth::user()->id;
+        $input['perbaikan_status_id'] = '1';
+       
+        $input['tanggal_pengajuan'] = Carbon::now()->toDateString('dd-mm-yyyy');
         $perbaikan = PerbaikanRuangan::create($input);
-        
+       
         Session::flash("flash_notification",[
             "level"=>"success",
             "message"=>"Pengajuan perbaikan ruangan saved successfully."]);
@@ -116,19 +120,19 @@ class PerbaikanRuanganController extends Controller
      */
     public function edit($id)
     {
-        $perbaikanRuangan = $this->perbaikan_ruangans->find($id);
+        // $perbaikanRuangan = $this->perbaikan_ruangans->find($id);
 
-        if (empty($perbaikanRuangan)) {
-            Flash::error('Pengajuan perbaikan not found');
+        // if (empty($perbaikanRuangan)) {
+        //     Flash::error('Pengajuan perbaikan not found');
 
-            return redirect(route('perbaikanruangans.index'));
-        }
+        //     return redirect(route('perbaikanruangans.index'));
+        // }
 
-        return view('perbaikan_ruangan.edit')
-        ->with('perbaikanRuangan', $perbaikanRuangan)
-         ->with('ruangans', $this->ruangans)
-         ->with('users',$this->users)
-         ->with('status',$this->status);
+        // return view('perbaikan_ruangan.edit')
+        // ->with('perbaikanRuangan', $perbaikanRuangan)
+        //  ->with('ruangans', $this->ruangans)
+        //  ->with('users',$this->users)
+        //  ->with('status',$this->status);
     }
 
     /**
@@ -140,37 +144,37 @@ class PerbaikanRuanganController extends Controller
      */
     public function update(Request $request,$id)
     {
-        $this->validate($request,[
-           'ruangan_id'=> 'required',
-           'tanggal_pengajuan'=> 'required|date',
-           'pengaju_id'=>'required',
-           'alasan'=>'required',
-           'perbaikan_status_id'=>'required',
-           'status_pengajuan'=>'required',
-           'tanggal_perbaikan'=> 'required|date',
-            'tanggal_selesai_perbaikan'=> 'required|date',
-            ]);
+        // $this->validate($request,[
+        //    'ruangan_id'=> 'required',
+        //    'tanggal_pengajuan'=> 'required|date',
+        //    'pengaju_id'=>'required',
+        //    'alasan'=>'required',
+        //    'perbaikan_status_id'=>'required',
+        //    'status_pengajuan'=>'required',
+        //    'tanggal_perbaikan'=> 'required|date',
+        //     'tanggal_selesai_perbaikan'=> 'required|date',
+        //     ]);
 
-        $perbaikanRuangan = $this->perbaikan_ruangans->find($id);
+        // $perbaikanRuangan = $this->perbaikan_ruangans->find($id);
         
-        $perbaikanRuangan->ruangan_id = $request->input('ruangan_id');
-        $perbaikanRuangan->tanggal_pengajuan = $request->input('tanggal_pengajuan');
-        $perbaikanRuangan->pengaju_id = $request->input('pengaju_id');
-        $perbaikanRuangan->alasan = $request->input('alasan');
-        $perbaikanRuangan->perbaikan_status_id = $request->input('perbaikan_status_id'); 
-        $perbaikanRuangan->status_pengajuan = $request->input('status_pengajuan'); 
-        $perbaikanRuangan->tanggal_perbaikan = $request->input('tanggal_perbaikan');
-        $perbaikanRuangan->tanggal_selesai_perbaikan = $request->input('tanggal_selesai_perbaikan');
+        // $perbaikanRuangan->ruangan_id = $request->input('ruangan_id');
+        // $perbaikanRuangan->tanggal_pengajuan = $request->input('tanggal_pengajuan');
+        // $perbaikanRuangan->pengaju_id = $request->input('pengaju_id');
+        // $perbaikanRuangan->alasan = $request->input('alasan');
+        // $perbaikanRuangan->perbaikan_status_id = $request->input('perbaikan_status_id'); 
+        // $perbaikanRuangan->status_pengajuan = $request->input('status_pengajuan'); 
+        // $perbaikanRuangan->tanggal_perbaikan = $request->input('tanggal_perbaikan');
+        // $perbaikanRuangan->tanggal_selesai_perbaikan = $request->input('tanggal_selesai_perbaikan');
 
 
-        if ($perbaikanRuangan->save()) {
-            toast()->success('Berhasil memperbaharui data pengajuan');
+        // if ($perbaikanRuangan->save()) {
+        //     toast()->success('Berhasil memperbaharui data pengajuan');
             
-            return redirect()->route('perbaikanruangans.index');
-        } else {
-            toast()->error('Data Pengajuan tidak dapat diperbaharui');
-            return redirect()->route('perbaikanruangans.edit', ['id' => $perbaikanRuangan->id]);
-        }
+        //     return redirect()->route('perbaikanruangans.index');
+        // } else {
+        //     toast()->error('Data Pengajuan tidak dapat diperbaharui');
+        //     return redirect()->route('perbaikanruangans.edit', ['id' => $perbaikanRuangan->id]);
+        // }
         
     }
 
@@ -194,11 +198,11 @@ class PerbaikanRuanganController extends Controller
      public function activate($id)
     {
         $pengajuan = PerbaikanRuangan::find($id);
-        $pengajuan->status_pengajuan = 1;
+        $pengajuan->perbaikan_status_id = 1;
         if ($pengajuan->save()) {
-            toast()->success('Berhasil mengaktifkan user '.$pengajuan->ruangan_id);
+            toast()->success('Berhasil Mengajukan Pengajuan ');
         } else {
-            toast()->danger('Gagal mengaktifkan user '.$pengajuan->ruangan_id);
+            toast()->danger('Gagal  Mengajukan Pengajuan ');
         }
         return redirect()->route('perbaikanruangans.index');
     }
@@ -207,12 +211,37 @@ class PerbaikanRuanganController extends Controller
     {
         $pengajuan = $this->perbaikan_ruangans->find($id);
 
-        $pengajuan->status_pengajuan = 0;
+        $pengajuan->perbaikan_status_id = 2;
         if ($pengajuan->save()) {
-            toast()->success('Berhasil Membatalkan Pengajuan ' . $pengajuan->ruangan_id);
+            toast()->success('Berhasil Membatalkan Pengajuan ');
         } else {
-            toast()->danger('Gagal Membatalkan Pengajuan ' . $pengajuan->ruangan_id);
+            toast()->danger('Gagal Membatalkan Pengajuan ' );
         }
         return redirect()->route('perbaikanruangans.index');
+    }
+
+     public function ajukan($id)
+    {
+        $pengajuan = PerbaikanRuangan::find($id);
+        $pengajuan->perbaikan_status_id = 1;
+        if ($pengajuan->save()) {
+            toast()->success('Berhasil Mengajukan Pengajuan ');
+        } else {
+            toast()->danger('Gagal Mengajukan Pengajuan ');
+        }
+        return redirect()->route('perbaikanruangans.show', $id);
+    }
+
+    public function batalkan($id)
+    {
+        $pengajuan = $this->perbaikan_ruangans->find($id);
+
+        $pengajuan->perbaikan_status_id = 2;
+        if ($pengajuan->save()) {
+            toast()->success('Berhasil Membatalkan Pengajuan ' );
+        } else {
+            toast()->danger('Gagal Membatalkan Pengajuan ' );
+        }
+        return redirect()->route('perbaikanruangans.show',$id);
     }
 }
