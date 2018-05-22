@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Mahasiswa;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+// use Illuminate\Http\File;
 
 use App\User;
+use Image;
+use File;
 
 class MahasiswaController extends Controller
 {
@@ -15,6 +18,7 @@ class MahasiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $mahasiswas = Mahasiswa::paginate(10);
@@ -28,11 +32,11 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        $roles = Role::all()->pluck('name', 'id');
-        $user_roles = null;
+        // $roles = Role::all()->pluck('name', 'id');
+        // $user_roles = null;'roles', 'user_roles', 
 
         $email = $username = null;
-        return view('view_mahasiswa.create_mahasiswa', compact('roles', 'user_roles', 'email', 'username'));
+        return view('view_mahasiswa.create_mahasiswa', compact('email', 'username'));
     }
 
     /**
@@ -44,45 +48,47 @@ class MahasiswaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'username' => 'required|unique:users',
-            'password' => 'required|min:8',
             'email' => 'required|email',
-            'role' => 'required',
+            'nim'       => 'required|unique:mahasiswa',
             'nama'      => 'required',
-            'nim'       => 'required',
+            'password' => 'required|min:8',
             'angkatan'  => 'required'
         ]);
 
         $user = new User();
-        $user->username = $request->input('username');
+        $user->username = $request->input('nim');
         $user->type = 2;
         $user->password = bcrypt($request->input('password'));
         $user->email = $request->input('email');
 
-        if ($request->hasFile('avatar') && $request->input('avatar')->isvalid()) {
-            $path = config('img.avatars');
+        //role type
+        $role = Role::find($user->type);
 
-            $fileext = $request->photo->extension();
+        if ($request->hasFile('avatar') && $request->file('avatar')->isvalid()) {
+            $path = config('central.path.avatars');
+
+            $fileext = $request->file('avatar')->extension();
             $filename = uniqid("avatars-") . '.' . $fileext;
 
             //Real File
-            $filepath = $request->file('photo')->storeAs($path, $filename, 'local');
+            $filepath = $request->file('avatar')->storeAs($path, $filename, 'local');
 
             //Avatar File
-            $realpath = storage_path('public/' . $filepath);
+            $realpath = storage_path('app/' . $filepath);
             Image::make($realpath)
                 ->resize(null, 100, function ($constraint) {
                     $constraint->aspectRatio();
                 })
-                ->save(public_path(config('img.avatars') . '/' . $filename));
+                ->save(public_path(config('central.path.avatars') . '/' . $filename));
 
             $user->avatar = $filename;
         }
         
+
         $user->save();
 
         $mahasiswa                  = new Mahasiswa();
-        $mahasiswa->id = $user->id;
+        $mahasiswa->id              = $user->id;
         $mahasiswa->nama            = $request->input('nama');
         $mahasiswa->nim             = $request->input('nim');
         $mahasiswa->angkatan        = $request->input('angkatan');
@@ -96,7 +102,7 @@ class MahasiswaController extends Controller
         if($mahasiswa->save())
         {
             toast()->success('Data Mahasiswa berhasil ditambahkan');
-            $user->assignRole($request->input('role'));
+            $user->assignRole($role);
             return redirect()->route('mahasiswa.index');
         }
         else
@@ -179,15 +185,15 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = Mahasiswa::find($id);
         $user = User::find($id);
-        if(empty($user->roles))
-        {
-            $user_roles = $user_roles->first()->id;
-        }
-        else
-        {
-            $user_roles = null;
-        }
-        $roles = Role::all()->pluck('name', 'id');
+        // if(empty($user->roles))
+        // {
+        //     $user_roles = $user_roles->first()->id;
+        // }
+        // else
+        // {
+        //     $user_roles = null;
+        // }
+        // $roles = Role::all()->pluck('name', 'id');'roles', 'user_roles',
 
 
         if(!empty($mahasiswa->user['email']))
@@ -208,7 +214,7 @@ class MahasiswaController extends Controller
             $username = null;
         }
 
-        return view('view_mahasiswa.edit_mahasiswa', compact('mahasiswa', 'roles', 'user_roles', 'email', 'username'));
+        return view('view_mahasiswa.edit_mahasiswa', compact('mahasiswa', 'email', 'username'));
     }
 
     /**
@@ -221,29 +227,33 @@ class MahasiswaController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'username' => 'required|unique:users',
-            'password' => 'required|min:8',
             'email' => 'required|email',
-            'role' => 'required',
-            'nama'      => 'required',
             'nim'       => 'required',
+            'nama'      => 'required',
+            'password' => 'required|min:8',
             'angkatan'  => 'required'
         ]);
 
         $user = User::find($id);
-        $user->username = $request->input('username');
+        $user->username = $request->input('nim');
         $user->type = 2;
         $user->password = bcrypt($request->input('password'));
         $user->email = $request->input('email');
 
-        if ($request->hasFile('avatar') && $request->input('avatar')->isvalid()) {
+        //role type
+        $role = Role::find($user->type);
+
+
+        if ($request->hasFile('avatar') && $request->file('avatar')->isvalid()) {
+            $oldFile = $user->avatar;
+
             $path = config('central.path.avatars');
 
-            $fileext = $request->photo->extension();
+            $fileext = $request->file('avatar')->extension();
             $filename = uniqid("avatars-") . '.' . $fileext;
 
             //Real File
-            $filepath = $request->file('photo')->storeAs($path, $filename, 'local');
+            $filepath = $request->file('avatar')->storeAs($path, $filename, 'local');
 
             //Avatar File
             $realpath = storage_path('app/' . $filepath);
@@ -256,7 +266,7 @@ class MahasiswaController extends Controller
             $user->avatar = $filename;
 
             //Hapus avatar & Photo
-            File::delete($realpath.'/' . $oldFile);
+            File::delete($path.'/' . $oldFile);
             File::delete(storage_path($path) . '/' . $oldFile);
         }
         
@@ -276,7 +286,7 @@ class MahasiswaController extends Controller
         if($mahasiswa->save())                    
         {
             toast()->success('Data Mahasiswa berhasil diperbaharui');
-            $user->syncRoles([$request->input('role')]);
+            $user->syncRoles($role);
             return redirect()->route('mahasiswa.index');
         }
         else
@@ -297,6 +307,13 @@ class MahasiswaController extends Controller
         $mahasiswa = Mahasiswa::find($id);
         $mahasiswa->delete();
         $user = User::find($id);
+        
+
+        $oldFile = $user->avatar;
+        $path = config('central.path.avatars');
+        File::delete($path.'/' . $oldFile);
+        File::delete(storage_path($path) . '/' . $oldFile);
+
         $user->delete();
         toast()->success('Data mahasiswa berhasil dihapus');
 

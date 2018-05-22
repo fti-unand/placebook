@@ -11,7 +11,7 @@
     <div class="col-md-12"> 
         <div class="card">
             
-            {!! Form::open(['route' => 'users.store', 'method' => 'post'] ) !!}
+            {!! Form::open(['route' => 'users.store', 'method' => 'post', 'files' => 'true', 'enctype' => 'multipart/form-data'] ) !!}
             
             <div class="card-header">
                 <i class="fa fa-align-justify"></i> Tambah User

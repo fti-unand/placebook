@@ -11,7 +11,7 @@
 		<div class="col-md-12">
 			<div class="card">
 				
-				{!! Form::model($mahasiswa, ['route' => ['mahasiswa.update', $mahasiswa->id], 'method' => 'patch']) !!}
+				{!! Form::model($mahasiswa, ['route' => ['mahasiswa.update', $mahasiswa->id], 'method' => 'patch', 'files' => 'true', 'enctype' => 'multipart/form-data']) !!}
 
 				<div class="card-header">
 					<i class="fa fa-align-justify"></i> Update Mahasiswa

@@ -7,6 +7,9 @@ use App\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\File;
 
+use Image;
+// use File;
+
 class UserController extends Controller
 {
     public function index()
@@ -39,14 +42,20 @@ class UserController extends Controller
         $user->password = bcrypt($request->input('password'));
         $user->email = $request->input('email');
 
-        if ($request->hasFile('avatar') && $request->input('avatar')->isvalid()) {
+        // var_dump($path);
+        // die();
+        // if ($request->hasFile('avatar') && $request->file('avatar')->isvalid()) {
             $path = config('central.path.avatars');
-
-            $fileext = $request->photo->extension();
+            
+            $fileext = $request->file('avatar')->extension();
+            var_dump($path);
+            die();
+            
             $filename = uniqid("avatars-") . '.' . $fileext;
 
+
             //Real File
-            $filepath = $request->file('photo')->storeAs($path, $filename, 'local');
+            $filepath = $request->file('avatar')->storeAs($path, $filename, 'local');
 
             //Avatar File
             $realpath = storage_path('app/' . $filepath);
@@ -57,7 +66,7 @@ class UserController extends Controller
                 ->save(public_path(config('central.path.avatars') . '/' . $filename));
 
             $user->avatar = $filename;
-        }
+        // }
 
         if ($user->save()) {
             toast()->success('Berhasil menambahkan data user');
@@ -103,16 +112,16 @@ class UserController extends Controller
         $user->password = bcrypt($request->input('password'));
         $user->email = $request->input('email');
 
-        if ($request->hasFile('avatar') && $request->input('avatar')->isvalid()) {
+        if ($request->hasFile('avatar') && $request->file('avatar')->isvalid()) {
             $oldFile = $user->avatar;
 
             $path = config('central.path.avatars');
 
-            $fileext = $request->photo->extension();
+            $fileext = $request->file('avatar')->extension();
             $filename = uniqid("avatars-") . '.' . $fileext;
 
             //Real File
-            $filepath = $request->file('photo')->storeAs($path, $filename, 'local');
+            $filepath = $request->file('avatar')->storeAs($path, $filename, 'local');
 
             //Avatar File
             $realpath = storage_path('app/' . $filepath);

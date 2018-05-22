@@ -52,7 +52,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">Profile Picture</label>
                         <div class="col-md-9 text-center">
-                            <img src="public/img/avatar/{{ $user->avatar }}" />
+                            <img src="public/img/avatars/{{ $user->avatar }}" />
                         </div>
                     </div>
                 </form>

@@ -64,7 +64,7 @@
 						<div class="form-group row">
 							<label class="col-md-3 col-form-label"> Profile Picture</label>
 							<div class="col-md-9 text-center">
-								<img src="public/img/avatar/{{ $mahasiswa->user['avatar'] }}">
+								<img src="{{asset('img/avatars/'.$mahasiswa->user['avatar'])}}">
 							</div>
 						</div>
 						<div class="form-group row">

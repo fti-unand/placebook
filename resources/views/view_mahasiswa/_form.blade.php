@@ -4,32 +4,25 @@
 </div>
 
 <div class="form-group">
-    <label for="username">Username</label>
-    {{ Form::text('username', $username, ['class' => 'form-control'])}}
-</div>
-
-<div class="form-group">
-    <label for="password">Password</label>
-    {{ Form::input('password', 'password', null, ['class' => 'form-control'])}}
-</div>
-
-<div class="form-group">
-    <label for="role">Role</label>
-    {{ Form::select('role',$roles, $user_roles, ['class' => 'form-control'])}}
-</div>
-<div class="form-group">
-    <label for="password">Password</label>
-    {{ Form::file('avatar', ['class' => 'form-control']) }}
+	<label for="nim"> NIM</label>
+	{{ Form::text('nim', null, ['class' => 'form-control']) }}
 </div>
 
 <div class="form-group">
 	<label for="nama"> Nama</label>
 	{{ Form::text('nama', null, ['class' => 'form-control']) }}
 </div>
-<div class="form-group">
-	<label for="nim"> NIM</label>
-	{{ Form::text('nim', null, ['class' => 'form-control']) }}
+
+<!-- <div class="form-group">
+    <label for="username">Username</label>
+    {{ Form::text('username', $username, ['class' => 'form-control'])}}
 </div>
+ -->
+<div class="form-group">
+    <label for="password">Password</label>
+    {{ Form::input('password', 'password', null, ['class' => 'form-control'])}}
+</div>
+
 <div class="form-group">
 	<label for="angkatan"> Angkatan</label>
 	{{ Form::number('angkatan', null, ['class' => 'form-control']) }}
@@ -59,13 +52,7 @@
 	{{ Form::select('status_masuk', array('1' => 'Baru', '2' => 'Pindahan'), null, ['class' => 'form-control']) }}
 </div>
 
-
-<!-- 1 -> SNMPTN
-2 -> SBMPTN
-3 -> MANDIRI
-
-STATUS MASUK
-1 -> BARU
-2 -> PINDAHAN -->
-
-
+<div class="form-group">
+    <label for="avatar">Photo</label>
+    {{ Form::file('avatar', ['class' => 'form-control']) }}
+</div>
