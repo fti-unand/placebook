@@ -53,24 +53,33 @@
                             <p class="col-form-label">{{ $gedung->tahun_pembangunan }}</p>
                         </div>
                     </div>
-
-
-
-
-
                 </form>
             </div>
         </div>
+        <a href="{{ route('gedungs.edit', [$gedung->id]) }}" class="btn btn-sm btn-outline-primary">
+            <i class="fa fa-pencil" class="fa fa-align-right"> Edit </i>
+        </a>
+        <button onclick="event.preventDefault();confirmDeletion('{{ route('gedungs.destroy', [$gedung->id]) }}');" class="btn btn-sm btn-outline-danger">
+            <i class="fa fa-trash"> Delete </i>
+        </button>
+
         
     </div>
 </div>
+
+<form style="display: none" action="#" method="post" id="form-delete">
+    @csrf
+    @method('delete')
+</form>
 @endsection
+
+
 
 @push('javascript')
 <script>
     function confirmDeletion(){
-        if(confirm('Anda yakin akan menghapus user ini?')){
-            form = document.querySelector('form-delete');
+        if(confirm('Anda yakin akan menghapus data gedung ini?')){
+            form = document.querySelector('#form-delete');
             form.submit();
         }
     }

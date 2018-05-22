@@ -101,14 +101,14 @@ class GedungController extends Controller
         $gedung->lokasi=$request->input('lokasi');
         $gedung->luas=$request->input('luas');
         $gedung->jumlah_lantai=$request->input('jumlah_lantai');
-        $gedung->tahun_pembangunan=$request->input('tahun_pembangunannama');
+        $gedung->tahun_pembangunan=$request->input('tahun_pembangunan');
 
 
 
         if($gedung->save()){
             toast()->success('Berhasil memperbahari data');
 
-            return redirect()->route('gedung.index');
+            return redirect()->route('gedungs.index');
         }
         else{
             toast()->error('gagal memperbahari data');

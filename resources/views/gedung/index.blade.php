@@ -79,7 +79,7 @@
 @push('javascript')
 <script>
     function confirmDeletion(url){
-        if(confirm('Anda yakin akan menghapus user ini? ')){
+        if(confirm('Anda yakin akan menghapus data gedung ini? ')){
             form = document.querySelector('#form-delete');
             form.action = url;
             form.submit();
