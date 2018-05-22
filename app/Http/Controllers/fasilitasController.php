@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\fasilitas;
+use App\RuanganFasilitas;
 use DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
+use Image;
 
 class fasilitasController extends Controller
 {
@@ -18,10 +22,11 @@ class fasilitasController extends Controller
         // $fas = fasilitas::where('id','=','4')->pluck('nama','nama');;
         // dd($fas);
     	$fasilitas = fasilitas::all();
+        // dd($fasilitas);
         return view('fasilitas.index',compact('fasilitas'));
     }
 
-    /**
+    /** 
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -41,10 +46,49 @@ class fasilitasController extends Controller
     {
     	$request->validate([
             'nama' => 'required',
+            'photo' => 'required|image|mimes:jpg,png,jpeg,gif'
         ]);
 
-        $fasi = new fasilitas;
-        $fasi->nama = $request->nama;
+
+         if ($request->hasFile('photo')) {
+            $path = config('central.path.avatars');
+
+            $fasi = new fasilitas;
+            $oldfile = $fasi->foto;
+
+            $fileext = $request->photo->extension();
+            $filename = uniqid("avatars-").'.'.$fileext;
+
+            //Real File
+            $filepath = $request->file('photo')->storeAs($path, $filename, 'local');
+            //Avatar File
+            $realpath = storage_path('app/'.$filepath);
+            $img = Image::make($realpath)
+                ->resize(null, 100, function ($constraint) {
+                    $constraint->aspectRatio();
+                })
+                ->save(public_path(config('central.path.avatars').'/'.$filename));
+
+            $fasi->foto = $filename;
+            $fasi->nama = $request->nama;
+            $fasi->merek = $request->merek;
+            $fasi->model = $request->model;
+            if ($fasi->save()) {
+                toast()->success("Berhasil Menambahkan Fasilitas");
+                if ($filename != $oldfile) {
+                    File::delete(storage_path('app'.'/'. $path . '/' . $oldfile));
+                    File::delete(public_path($path . '/' . $oldfile));
+                }
+            } else {
+                toast()->danger("Oh...snap... Gagal Menambah Fasilitas");
+            }
+        }
+
+        
+        
+        
+
+
         $fasi->save();
         return redirect()->route('fasilitas.index');
     }
@@ -58,8 +102,7 @@ class fasilitasController extends Controller
     public function show($id)
     {
        $detail = fasilitas::find($id);
-       $tampil = DB::select(DB::raw(" SELECT ruangan.nama as nmruangan, ruangan_fasilitas.jumlah from ruangan_fasilitas join fasilitas on ruangan_fasilitas.fasilitas_id = fasilitas.id join ruangan on ruangan_fasilitas.ruangan_id = ruangan.id where ruangan_fasilitas.id = '$id' "));
-       // dd($tampil);
+       $tampil = DB::select(DB::raw(" SELECT ruangan_fasilitas.id as id, ruangan.nama as nmruangan, gedung.nama as nmgedung, ruangan.lantai as ltruangan, ruangan_fasilitas.jumlah from ruangan_fasilitas join fasilitas on ruangan_fasilitas.fasilitas_id = fasilitas.id join ruangan on ruangan_fasilitas.ruangan_id = ruangan.id join gedung on ruangan.gedung_id=gedung.id where fasilitas.id = '$id' "));
         return view('fasilitas.show', compact('detail','tampil'));
     }
 
@@ -100,7 +143,57 @@ class fasilitasController extends Controller
     public function destroy($id)
     {
         $fasi = fasilitas::find($id);
-        $fasi->delete();
-        return redirect()->route('fasilitas.index');
+        $detail = fasilitas::find($id);
+        $tampil = DB::select(DB::raw(" SELECT ruangan_fasilitas.id as id, ruangan.nama as nmruangan, gedung.nama as nmgedung, ruangan.lantai as ltruangan, ruangan_fasilitas.jumlah from ruangan_fasilitas join fasilitas on ruangan_fasilitas.fasilitas_id = fasilitas.id join ruangan on ruangan_fasilitas.ruangan_id = ruangan.id join gedung on ruangan.gedung_id=gedung.id where fasilitas.id = '$id' "));
+       if (count($tampil)>0) {
+           toast()->error('Tidak Berhasil Mengahpus Data karena Memiliki Relasi');  
+       }else{
+            $fasi->delete();
+       }
+       return redirect()->route('fasilitas.index');
     }
+
+    public function profilePicture(Request $request, $id)
+    {
+        $request->validate([
+            'photo' => 'required|image|mimes:jpg,png,jpeg,gif'
+        ]);
+
+        if ($request->hasFile('photo')) {
+            $path = config('central.path.avatars');
+
+            $fasi = fasilitas::find($id);
+            $oldfile = $fasi->foto;
+
+            $fileext = $request->photo->extension();
+            $filename = uniqid("avatars-").'.'.$fileext;
+
+            //Real File
+            $filepath = $request->file('photo')->storeAs($path, $filename, 'local');
+            //Avatar File
+            $realpath = storage_path('app/'.$filepath);
+            $img = Image::make($realpath)
+                ->resize(null, 100, function ($constraint) {
+                    $constraint->aspectRatio();
+                })
+                ->save(public_path(config('central.path.avatars').'/'.$filename));
+
+            $fasi->foto = $filename;
+            if ($fasi->save()) {
+                toast()->success("Berhasil mengganti foto Anda");
+                if ($filename != $oldfile) {
+                    File::delete(storage_path('app'.'/'. $path . '/' . $oldfile));
+                    File::delete(public_path($path . '/' . $oldfile));
+                }
+            } else {
+                toast()->danger("Oh...snap... Gagal mengganti foto Anda");
+            }
+
+        }
+
+       
+        return redirect()->back();
+    }
+
+
 }

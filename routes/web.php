@@ -34,4 +34,5 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('image/{type}/{id}', 'FileController@image')->name('get.image');
 
+Route::patch('fasilitas/picture/{id}', 'fasilitasController@profilePicture')->name('fasilitas.picture');
 Route::resource('fasilitas', 'fasilitasController');

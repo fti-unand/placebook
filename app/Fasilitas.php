@@ -13,10 +13,12 @@ class Fasilitas extends Model
 
      protected $casts = [
         'id' => 'integer',
-        'nama' => 'string'
+        'nama' => 'string',
+        'merek' => 'string',
+        'model' => 'string',
     ];
 
     public $fillable = [
-        'nama'
+        'nama','merek','model'
     ];
 }

@@ -15,7 +15,7 @@
             
             <div class="card-header">
                 <i class="fa fa-align-justify"></i> Daftar Fasilitas
-            </div>
+            </div> 
             
             <div class="card-body">
                 <table class="table table-responsive-sm table-bordered">
@@ -23,6 +23,8 @@
                         <tr>
                             <th class="text-center" style="width: 20px">NO</th>
                             <th class="text-center">Nama Fasilitas</th>
+                            <th class="text-center">Merek Fasilitas</th>
+                            <th class="text-center">Model Fasilitas</th>
                             <th class="text-center" style="width: 200px">Aksi</th>
                         </tr>
                     </thead>
@@ -32,6 +34,8 @@
                         <tr>
                             <td style="width: 20px">{{ ++$no }}</td>
                             <td>{{ $fasilitas->nama }}</td>
+                            <td>{{ $fasilitas->merek }}</td>
+                            <td>{{ $fasilitas->model }}</td>
                                                         
                             <td class="text-center" style="width: 40px" >
                                 <a href="{{ route('fasilitas.show', [$fasilitas->id]) }}" class="btn btn-sm btn-outline-primary">

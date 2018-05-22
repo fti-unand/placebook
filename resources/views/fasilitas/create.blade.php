@@ -1,6 +1,6 @@
 @extends('blank')
 
-{{-- Menu Breadcrumb --}}
+{{-- Menu Breadcrumb --}} 
 @section('breadcrumb')
     <a class="btn" href="{{ route('fasilitas.index') }}"><i class="icon-list"></i> Fasilitas </a>
 @endsection
@@ -11,10 +11,10 @@
     <div class="col-md-12"> 
         <div class="card">
             
-            {!! Form::open(['route' => 'fasilitas.store', 'method' => 'post'] ) !!}
+            {!! Form::open(['route' => 'fasilitas.store', 'method' => 'post', 'enctype'=>'multipart/form-data'] ) !!}
             
             <div class="card-header">
-                <i class="fa fa-align-justify"></i> Tambah User
+                <i class="fa fa-align-justify"></i> Tambah Fasilitas
             </div>
             
             <div class="card-body">
