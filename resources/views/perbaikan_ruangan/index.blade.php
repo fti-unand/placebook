@@ -24,9 +24,9 @@
                             <th class="text-center">No</th>
                             <th class="text-center">Nama Ruangan</th>
                             <th class="text-center">Tanggal Pengajuan</th>
-                            <th class="text-center">Perbaikan Status </th>
-                            <th class="text-center">Status</th>
+                            <th class="text-center">Pengajuan Status </th>
                             <th class="text-center">Aksi</th>
+                            <th class="text-center">Detail</th>
                         </tr>
 
 
