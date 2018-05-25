@@ -22,7 +22,6 @@
                     <thead>
                         <tr>
                             <th class="text-center">ID Ruangan</th>
-                            <th class="text-center">ID Peminjam</th>
 
                             <th class="text-center">Tanggal Pengajuan</th>
                             <th class="text-center">Tanggal Mulai</th>
@@ -35,13 +34,12 @@
                     <tbody>
                         @foreach($peminjaman as $peminjaman)
                         <tr>
-                            <td>{{ $peminjaman->ruangan_id }}</td>
-                            <td>{{ $peminjaman->peminjam_id }}</td>
+                            <td>{{ $peminjaman->ruangan->nama}}</td>
                             <td>{{ $peminjaman->tanggal_pengajuan }}</td>
                             
                             <td>{{ $peminjaman->tanggal_mulai }}</td>
                             <td>{{ $peminjaman->tanggal_selesai }}</td>
-                            <td>{{ $peminjaman->peminjaman_status_id }}</td>
+                            <td>{{ $peminjaman->status->nama }}</td>
                             <td>{{ $peminjaman->tujuan }}</td>
                             
                             <td class="text-center">

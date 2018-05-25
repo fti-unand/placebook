@@ -9,6 +9,7 @@ use App\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon as DJTanggal;
 
 class PeminjamanController extends Controller
 {
@@ -19,7 +20,7 @@ class PeminjamanController extends Controller
      */
     public function index()
     {
-        $peminjaman = PeminjamanRuangan::all();
+        $peminjaman = PeminjamanRuangan::where('peminjam_id',Auth::user()->id)->get();
 
         return view('admin.peminjaman.index', compact('peminjaman'));
     }
@@ -33,7 +34,7 @@ class PeminjamanController extends Controller
     {
         $roles = Role::all()->pluck('name', 'id');
         $user_roles = null;
-        $ruangans=Ruangan::all()->pluck('nama','id');
+        $ruangans=Ruangan::where('bisa_dipinjam','1')->pluck('nama','id');
         $user = User::pluck('username','id');
         $peminjam_id=null;
 
@@ -42,7 +43,7 @@ class PeminjamanController extends Controller
 
     public function destroy($id)
     {
-                $peminjaman = PeminjamanRuangan::find($id);
+        $peminjaman = PeminjamanRuangan::find($id);
         $peminjaman->delete();
         toast()->success('Data peminjaman berhasil dihapus');
 
@@ -63,13 +64,13 @@ class PeminjamanController extends Controller
         $ruangans=new PeminjamanRuangan();
 
         $ruangans->ruangan_id=$request['ruangan_id'];
-        $ruangans->peminjam_id=$request['peminjam_id'];
-        $ruangans->tanggal_pengajuan=$request['tanggal_pengajuan'];
-        $ruangans->tanggal_mulai=$request['tanggal_mulai'];
+        $ruangans->peminjam_id=Auth::user()->id;
+        $ruangans->tanggal_pengajuan= DJTanggal::now();
+        $ruangans->tanggal_peminjaman=$request['tanggal_mulai'];
         $ruangans->jam_mulai=$request['jam_mulai'];
         $ruangans->tanggal_selesai=$request['tanggal_selesai'];
         $ruangans->jam_selesai=$request['jam_selesai'];
-        $ruangans->peminjaman_status_id=$request['peminjaman_status_id'];
+        $ruangans->peminjaman_status_id=0;
         $ruangans->tujuan=$request['tujuan'];
         $ruangans->save();
         toast()->success('Berhasil menambahkan data');

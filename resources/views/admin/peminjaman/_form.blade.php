@@ -2,14 +2,9 @@
     <label for="id">Ruangan</label>
     {{ Form::select('ruangan_id',$ruangans, ['class' => 'form-control'])}}
 </div>
-
 <div class="form-group">
-    <label for="username">ID Peminjam</label>
-    {{ Form::select('peminjam_id', $user, $peminjam_id, ['class' => 'form-control'])}}
-</div>
-<div class="form-group">
-    <label for="tanggal pengajuan">Tanggal Pengajuan</label>
-   {{ Form::date('tanggal_pengajuan','tanggal_pengajuan', null, ['class' => 'form-control','placeholder'=>'date'])}}
+    <label for="tanggal pengajuan">Tanggal Peminjaman</label>
+   {{ Form::date('tanggal_peminjaman','tanggal_peminjaman', null, ['class' => 'form-control','placeholder'=>'date'])}}
 </div>
 <div class="form-group">
     <label for="tanggal mulai">Tanggal Mulai</label>
@@ -26,10 +21,6 @@
 <div class="form-group">
     <label for="jam selesai">Jam Selesai</label>
    {{ Form::text('jam_selesai', null, ['class' => 'form-control'])}}
-</div>
-<div class="form-group">
-    <label for="peminjaman status">Peminjaman Status</label>
-   {{ Form::text('peminjaman_status_id', null, ['class' => 'form-control'])}}
 </div>
 <div class="form-group">
     <label for="tujuan">Tujuan</label>
