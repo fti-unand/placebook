@@ -35,13 +35,14 @@
                             <td>{{ $pinjam->gedung }}</td>
                             <td>{{ $pinjam->ruangana }}</td>
                             <td>{{ $pinjam->jmlhpeminjam }}</td>
+
                         </tr>
                         @endforeach                        
                     </tbody>
                 </table>
             </div>
             
-            <
+            
         </div>
 
         <div class="card">
@@ -76,6 +77,15 @@
             
         </div>
 
+<div class="card">
+            
+            <div class="card-header">
+                <i class="fa fa-align-justify"></i> Chart Statistik Penggunaan dan Perbaikan
+            </div>
+            <!-- tbpinjam -->
+            <div class="card-body">
+                
+@push('javascript')
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script type="text/javascript">
@@ -90,28 +100,30 @@
             text: 'Statistik Gedung dan Ruangan'
         },
         xAxis: {
-            categories: ['2013','2014','2015', '2016']
+            categories: ['Gedung A','']
         },
         yAxis: {
             title: {
-                text: 'Rate'
+                text: 'Jumlah Total'
             }
         },
         series: [{
-            name: 'Click',
+            name: 'Peminjaman',
             data: data_click
         }, {
-            name: 'View',
+            name: 'Perbaikan',
             data: data_viewer
         }]
     });
 });
 </script>
+@endpush
+
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Chart Penggunaan dan Perbaikan</div>
+                <div class="panel-heading"> </div>
                 <div class="panel-body">
                     <div id="container"></div>
                 </div>
@@ -119,6 +131,10 @@
         </div>
     </div>
 </div>
+            </div>
+            
+        </div>
+
 @endsection
 
 @push('javascript')

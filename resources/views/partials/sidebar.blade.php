@@ -16,14 +16,12 @@
                 </a> 
                 <a class="nav-link" href="{{ route('rusaks.index') }}">
                     <i class="nav-icon icon-people"></i> Laporan Perbaikan Ruangan
-<<<<<<< HEAD
+
                 </a>
                 <a class="nav-link" href="{{ route('statis.gabungtable') }}">
                     <i class="nav-icon icon-people"></i> Statistik Gedung dan Ruangan
                 </a>
-=======
                 </a> 
->>>>>>> ccd63fb1d63f106de579d2093d5d7c1acb8a47cd
             </li>
         </ul>
     </nav>
