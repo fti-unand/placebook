@@ -100,7 +100,7 @@
             text: 'Statistik Gedung dan Ruangan'
         },
         xAxis: {
-            categories: ['Gedung A','']
+            categories: ['Gedung A', 'Gedung B', 'Gedung C', 'Gedung D', 'Gedung E', 'Gedung F', 'Gedung G', 'Gedung I', ]
         },
         yAxis: {
             title: {
