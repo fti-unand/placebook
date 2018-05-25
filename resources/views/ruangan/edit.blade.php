@@ -2,7 +2,7 @@
 
 {{-- Menu Breadcrumb --}}
 @section('breadcrumb')
-    <a class="btn" href="{{ ('/ruangan/update') }}"><i class="icon-list"></i> List</a>
+    <a class="btn" href="{{ route('ruangan.index') }}"><i class="icon-list"></i> List</a>
 @endsection
 
 {{-- Content Utama --}}

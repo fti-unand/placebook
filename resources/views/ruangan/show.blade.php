@@ -59,6 +59,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Fasilitas</label>
+                        <div class="col-md-9">
+                            <p class="col-form-label">{{ $rf}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-md-3 col-form-label">Fungsi</label>
                         <div class="col-md-9">
                             <p class="col-form-label">{{ $ruangan->fungsi->nama }}</p>

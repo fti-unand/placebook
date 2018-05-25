@@ -14,7 +14,7 @@
             </li>
                         <li class="nav-item">
                 <a class="nav-link" href="{{ route('ruangan.index') }}">
-                    <i class="nav-icon icon-home"></i> Pengelolaan Ruangan
+                    <i class="nav-icon icon-home"></i> Kelola Ruangan
                 </a>
             </li>
         </ul>

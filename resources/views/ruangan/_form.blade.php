@@ -20,7 +20,7 @@
 
 <div class="form-group">
     <label for="bisa_dipinjam">Status Peminjaman</label>
-    {{ Form::select('bisa_dipinjam', [4 => '', 1 => 'Bisa dipinjam', 0 => 'Tidak bisa dipinjam'], null, ['class' => 'form-control'])}}
+    {{ Form::select('bisa_dipinjam', [1 => 'Bisa dipinjam', 0 => 'Tidak bisa dipinjam'], null, ['class' => 'form-control'])}}
 </div>
 
 <div class="form-group">

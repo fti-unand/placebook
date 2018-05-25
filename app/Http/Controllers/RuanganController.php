@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection;
 use Spatie\Permission\Models\Role;
 use App\Ruangan;
 use App\RuanganKondisi;
 use App\RuanganFungsi;
+use App\RuanganFasilitas;
 use App\Unit;
 use App\Gedung;
 
@@ -25,35 +28,38 @@ class RuanganController extends Controller
         $kondisis = RuanganKondisi::all()->pluck('nama', 'id');
         $fungsis = RuanganFungsi::all()->pluck('nama', 'id');
         $pengelolas = Unit::all()->pluck('nama', 'id');
-		$gedungs = Gedung::all()->pluck('nama', 'id');
+        $gedungs = Gedung::all()->pluck('nama', 'id');
 
         return view('ruangan.create', compact('kondisis','fungsis', 'bisa_dipinjams', 'pengelolas', 'gedungs'));
     }
 
     public function store(Request $request)
     {
-    	$input = $request->all();
+        $input = $request->all();
 
-    	$ruangan = new Ruangan;
+        $ruangan = new Ruangan;
 
-    	$ruangan->gedung_id = $request->gedung_id;
-    	$ruangan->nama = $request->nama;
-    	$ruangan->luas = $request->luas;
-    	$ruangan->lantai = $request->lantai;
-    	$ruangan->bisa_dipinjam = $request->bisa_dipinjam;
-    	$ruangan->ruangan_kondisi_id = $request->kondisi;
-    	$ruangan->ruangan_fungsi_id = $request->fungsi;
-    	$ruangan->unit_pengelola_id = $request->unit_pengelola_id;
-    	$ruangan->created_at = date(now());
+        $ruangan->gedung_id = $request->gedung_id;
+        $ruangan->nama = $request->nama;
+        $ruangan->luas = $request->luas;
+        $ruangan->lantai = $request->lantai;
+        $ruangan->bisa_dipinjam = $request->bisa_dipinjam;
+        $ruangan->ruangan_kondisi_id = $request->kondisi;
+        $ruangan->ruangan_fungsi_id = $request->fungsi;
+        $ruangan->unit_pengelola_id = $request->unit_pengelola_id;
+        $ruangan->created_at = date(now());
 
-    	$ruangan->save();
-    	return view('ruangan.show', compact('ruangan'));
+        $ruangan->save();
+        return view('ruangan.show', compact('ruangan'));
     }
 
     public function show($id)
     {
         $ruangan = Ruangan::find($id);
-        return view('ruangan.show', compact('ruangan'));
+        // $rf = RuanganFasilitas::with(['ruangan','fasilitas'])->pluck('nama');
+        $rf = DB::table('ruangan')->join('ruangan_fasilitas', 'ruangan.id', '=', 'ruangan_fasilitas.ruangan_id')->join('fasilitas', 'ruangan_fasilitas.fasilitas_id', '=', 'fasilitas.id')->where('ruangan.id','=',$id)->select('fasilitas.nama')->pluck('nama');
+
+        return view('ruangan.show', compact('ruangan', 'rf'));
     }
 
     public function edit($id)
@@ -68,15 +74,15 @@ class RuanganController extends Controller
         $kondisis = RuanganKondisi::all()->pluck('nama', 'id');
         $fungsis = RuanganFungsi::all()->pluck('nama', 'id');
         $pengelolas = Unit::all()->pluck('nama', 'id');
-		$gedungs = Gedung::all()->pluck('nama', 'id');
-
+        $gedungs = Gedung::all()->pluck('nama', 'id');
+        
         return view('ruangan.edit', compact('ruangan','kondisis','fungsis', 'bisa_dipinjams', 'pengelolas', 'gedungs'));
     }
 
     public function update(Request $request, $id)
     {
 
-    	
+        
         $request->validate
         ([
             'gedung_id' => 'required',

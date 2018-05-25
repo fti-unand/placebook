@@ -24,10 +24,10 @@
                         <tr>
                             <th class="text-center">Nama</th>
                             <th class="text-center">Luas</th>
-                            <th class="text-center">Lantai</th>
-                            <th class="text-center">Peminjaman</th>
+<!--                             <th class="text-center">Lantai</th> -->
+<!--                             <th class="text-center">Peminjaman</th> -->
                             <th class="text-center">Kondisi</th>
-                            <th class="text-center">Fungsi</th>
+<!--                             <th class="text-center">Fungsi</th> -->
                             <th class="text-center">Pengelola</th>
                             <th class="text-center">Aksi</th>
                         </tr>
@@ -35,17 +35,17 @@
                     <tbody>
                         @foreach($ruangans as $ruangan)
                         <tr>
-                            <td>{{ $ruangan->nama }}</td>
-                            <td>{{ $ruangan->luas }}</td>
-                            <td>{{ $ruangan->lantai}}</td>
+                            <td class="text-center">{{ $ruangan->nama }}</td>
+                            <td class="text-center">{{ $ruangan->luas }}</td>
+<!--                             <td class="text-center">{{ $ruangan->lantai}}</td>
                             @if($ruangan->bisa_dipinjam == 1)
-                                <td>Ruangan Bisa Dipinjam</td>
+                                <td class="text-center">Ruangan Bisa Dipinjam</td>
                             @else
-                                <td>Ruangan Tidak Bisa Dipinjam</td>
-                            @endif
-                            <td>{{ $ruangan->kondisi->nama}}</td>
-                            <td>{{ $ruangan->fungsi->nama}}</td>
-                            <td>{{ $ruangan->unit->nama}}</td>
+                                <td class="text-center">Ruangan Tidak Bisa Dipinjam</td>
+                            @endif -->
+                            <td class="text-center">{{ $ruangan->kondisi->nama}}</td>
+<!--                             <td class="text-center">{{ $ruangan->fungsi->nama}}</td> -->
+                            <td class="text-center">{{ $ruangan->unit->nama}}</td>
                             
                             
                             <td class="text-center">

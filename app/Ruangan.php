@@ -26,4 +26,8 @@ class Ruangan extends Model
     {
         return $this->belongsTo(Unit::class, 'unit_pengelola_id');
     }
+    public function ruanganfasilitas()
+    {
+    	return $this->hasMany(RuanganFasilitas::class);
+    }
 }
