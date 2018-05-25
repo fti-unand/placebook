@@ -91,7 +91,6 @@ class UnitController extends Controller
     public function destroy($id)
     {
         $Unit = Unit::find($id);
-        
         $Unit->delete();
         toast()->success('Data unit berhasil dihapus');
         return redirect()->route('units.index');

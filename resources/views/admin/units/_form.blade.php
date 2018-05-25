@@ -10,7 +10,7 @@
 
 <div class="form-group">
     <label for="tanggal_berdiri">Tanggal Berdiri</label>
-    {{ Form::text('tanggal_berdiri', '2000-12-31', ['class' => 'form-control'])}}
+    {{ Form::date('tanggal_berdiri', 'Y-m-d', ['class' => 'form-control'])}}
 </div>
 <div class="form-group">
     <label for="unit_induk_id">Unit Induk</label>
