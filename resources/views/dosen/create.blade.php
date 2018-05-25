@@ -14,7 +14,7 @@
     <div class="col-md-12"> 
         <div class="card">
             
-            {!! Form::open(['route' => 'dosen.create', 'method' => 'post'] ) !!}
+            {!! Form::open(['route' => 'dosen.create', 'method' => 'post','files' => true] ) !!}
             
             <div class="card-header">
                 <i class="fa fa-align-justify"></i> Tambah Dosen

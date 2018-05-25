@@ -4,11 +4,13 @@
 @section('breadcrumb')
     <a class="btn" href="{{ route('dosen.edit', [ $dosen->id]) }}"><i class="icon-pencil"></i> Edit</a>
     <a class="btn" href="{{ route('dosen.index') }}"><i class="icon-list"></i> List</a>
-
-    <form style="display: none" action="{{ route('dosen.destroy', [$dosen->id]) }}" method="post" id="form-delete">
+    
+    <button onclick="event.preventDefault();confirmDeletion('{{url('dosen/'.$dosen->id)}}');" class="btn btn-sm btn-outline-danger"><i class="fa fa-trash"></i> Hapus</a>
+    <form style="display: none" action="#" method="post" id="form-delete">
         @csrf
         @method('delete')
     </form>
+        
 @endsection
 
 
@@ -26,7 +28,6 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">Username</label>
                         <div class="col-md-9">
-
                             <p class="col-form-label">{{ $dosen->nama }}</p>
                         </div>
                     </div>
@@ -82,6 +83,13 @@
                         @endif
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">{{$dosen->london}}</label>
+                        <div class="col-md-9 text-center">
+                            <!-- <img height="20" width="30" src="{{$dosen->london}}" /> -->
+                            {{$dosen->london}}
+                        </div>
+                    </div>
                    
                     
                 </form>
@@ -94,10 +102,14 @@
 
 @push('javascript')
 <script>
-    function confirmDeletion(){
-        if(confirm('Anda yakin akan menghapus user ini?')){
-            form = document.querySelector('form-delete');
+    function confirmDeletion(url){
+        if(confirm('Anda yakin akan menghapus data dosen ini? ')){
+            form = document.querySelector('#form-delete');
+            form.action = url;
             form.submit();
         }
     }
+    
 </script>
+@endpush
+

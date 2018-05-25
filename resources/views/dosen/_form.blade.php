@@ -1,7 +1,7 @@
 <div class="form-group">
-    <label for="nama">Username</label>
+    <label for="nama"></label>
 @if($edit==0)
-    {{ Form::select('user_id', $user,null, ['class' => 'form-control'])}}
+    {{ Form::hidden('user_id', $user,null, ['class' => 'form-control'])}}
 @else
 <label>: {{$user->username}}
     {{ Form::hidden('user_id', $user->username,null, ['class' => 'form-control'])}}
@@ -52,4 +52,9 @@
 <div class="form-group">
     <label for="gelar_depan">Jenis Kelamin</label>
     {{ Form::select('jenis_kelamin',['1'=>'laki - laki', '2' =>'perempuan'], null, ['class' => 'form-control'])}}
+</div>
+
+<div class="form-group">
+    <label for="avatar">Foto</label>
+    {{ Form::file('avatar', ['class' => 'form-control']) }}
 </div>

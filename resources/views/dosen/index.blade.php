@@ -45,7 +45,12 @@
                             <td>{{ $dosen->nohp }}</td>
                             <td>{{ $dosen->tempat_lahir }}</td>
                             <td>{{ $dosen->tanggal_lahir }}</td>
-                            <td>{{ $dosen->jenis_kelamin }}</td>
+                            @if ( $dosen->jenis_kelamin ==1 )
+                            <td>Laki-Laki</td>
+                            @else 
+                            <td>Perempuan</td>
+                            @endif
+                            
                             
                             <td class="text-center">
                                 <a href="{{route('dosen.show', [$dosen->id])}}" class="btn btn-sm btn-outline-primary"><i class="fa fa-eye"></i></a>

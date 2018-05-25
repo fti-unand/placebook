@@ -9,7 +9,6 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Http\File;
 use DB;
 use Session;
-
 use Illuminate\Support\Facades\Hash;
 
 class DosenController extends Controller
@@ -49,9 +48,22 @@ class DosenController extends Controller
      */
     public function store(Request $request)
     {
+        //return $request;
+        $user = new User;
+        $user->username = $request->nip;
+        $user->email = "";
+        $user->password = "";
+        $user->type = 1;
+        $user->status = 0;
+        $user->avatar = 0;
+        $user->first_login = 0;
+        $user->save();
+
+        $newuser = User::where('username', '=',$user->username)->first();
+
         $input = $request->all();
         $dosen = new Dosen;
-        $dosen->id =$request->user_id;
+        $dosen->id = $newuser->id;
         $dosen->nama = $request->nama;
         $dosen->nip = $request->nip;
         $dosen->nidn = $request->nidn;
@@ -61,19 +73,28 @@ class DosenController extends Controller
         $dosen->tempat_lahir = $request->tempat_lahir;
         $dosen->tanggal_lahir = $request->tanggal_lahir;
         $dosen->jenis_kelamin = $request->jenis_kelamin;
-        $user = Dosen::where('id', '=',$dosen->id)->first();
-        if($user===NULL){
+
+        $newdosen = Dosen::where('id', '=',$dosen->id)->first();
+        
+        if($newdosen===NULL){
             $dosen->save();
             return view('dosen.show',compact('dosen'));
         }
         else{
-
             Session::flash('flash_message','Dosen sudah terdaftar.');
             $edit=0;
             $user=User::pluck('username','id');
 
             return view('dosen.create',compact('dosen','user','edit'));
         }
+
+        
+
+
+        //return;
+        
+        
+        
         
         
         

@@ -23,7 +23,8 @@ class Dosen extends Model
     'nohp',
     'tempat_lahir',
     'tanggal_lahir',
-    'jenis_kelamin'
+    'jenis_kelamin',
+   
     ];
 
     
